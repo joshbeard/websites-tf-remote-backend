@@ -12,12 +12,12 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.ref }}
+      - run: echo "$TF_BACKEND_CONFIG" > backend.conf
+      - run: cat backend.conf
       - uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.0.9
           terraform_wrapper: false
-      - run: echo "$TF_BACKEND_CONFIG" > backend.conf
-      - run: cat backend.conf
       - run: terraform init -backend-config=backend.conf
       - id: plan
         run: terraform plan -no-color
