@@ -1,0 +1,19 @@
+name: Build
+on:
+  push:
+    branches:
+      - master
+      - actions
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.12.25
+          terraform_wrapper: false
+      - run: echo "$TF_BACKEND_CONFIG" > backend.conf
+      - run: terraform init -backend-config=backend.conf
+      - id: plan
+        run: terraform plan -no-color
