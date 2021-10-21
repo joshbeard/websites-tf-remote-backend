@@ -12,6 +12,8 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.ref }}
+        env:
+            TF_BACKEND_CONFIG: ${{ secrets.TF_BACKEND_CONFIG }}
       - run: echo "$TF_BACKEND_CONFIG" > backend.conf
       - run: cat backend.conf
       - uses: hashicorp/setup-terraform@v1
